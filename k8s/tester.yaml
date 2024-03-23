@@ -1,0 +1,16 @@
+---
+
+- name: serial tester
+  hosts: workers
+  serial: 1
+  gather_facts: false
+  tasks: 
+  - name: command 1
+    command: hostname
+
+  - name: command 2
+    command: id
+
+  - name: sleep
+    command: sleep 60
+

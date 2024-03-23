@@ -1,0 +1,18 @@
+---
+masters: 
+  hosts: 
+    k8sm1:
+  vars:
+    ansible_become: true
+    become_method: sudo
+workers: 
+  hosts: 
+    k8sw1:
+    k8sw2:
+    k8sw3:
+    k8sw4:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+...

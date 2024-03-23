@@ -1,0 +1,77 @@
+---
+- name: upgrade kubernetes cluster
+  hosts: k8sm1
+  gather_facts: false
+  tasks: 
+  - name: apt update
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: unhold kubeadm
+    ansible.builtin.dpkg_selections:
+      name: kubeadm
+      selection: install
+
+  - name: kill apiserver
+    command: killall -s SIGTERM kube-apiserver
+
+  - name: upgrade kubeadm
+    ansible.builtin.apt:
+      name: kubeadm=1.29.3-1.1
+      state: present
+
+  - name: hold kubeadm
+    ansible.builtin.dpkg_selections:
+      name: kubeadm
+      selection: hold
+
+  - name: wait for apiserver
+    command: sleep 120
+
+  - name: kubeadm upgrade
+    command: echo y | kubeadm upgrade apply v1.29.3
+
+  - name: drain the node
+    command: kubectl drain k8sm1 --ignore-daemonsets
+
+  - name: unhold kubelet
+    ansible.builtin.dpkg_selections:
+      name: kubelet
+      selection: install
+
+  - name: unhold kubectl
+    ansible.builtin.dpkg_selections:
+      name: kubectl
+      selection: install
+
+  - name: upgrade kubelet
+    ansible.builtin.apt:
+      name: kubelet=1.29.3-1.1
+      state: present
+
+  - name: upgrade kubectl
+    ansible.builtin.apt:
+      name: kubectl=1.29.3-1.1
+      state: present
+
+  - name: hold kubelet
+    ansible.builtin.dpkg_selections:
+      name: kubelet
+      selection: hold
+
+  - name: hold kubectl
+    ansible.builtin.dpkg_selections:
+      name: kubectl
+      selection: hold
+
+  - name: daemon reload
+    command: systemctl daemon-reload
+
+  - name: restart kubelet
+    command: systemctl restart kubelet
+
+  - name: uncordon the node
+    command: kubectl uncordon k8sm1
+
+...
+
