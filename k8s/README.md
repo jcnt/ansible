@@ -14,7 +14,7 @@ single master node
 - k8s-workers.yaml  
 worker nodes executed as rolling upgrade  
 
-- k8s-ansible-upgrade-29.2-29.3.log 
+- k8s-ansible-upgrade-29.2-29.3.log  
 example log of an executed upgrade.  
 sample deployment and node list at the end  
 
