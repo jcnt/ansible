@@ -1,16 +1,22 @@
-sample playbooks for upgrading my lab cluster. 
- - k8s-master.yaml
+### sample playbooks for upgrading my lab cluster. 
 
-    single master node
+#### requirements: 
+- auth setup with ssh keys
+- sudo w/o password
+- kubectl to run on worker nodes
 
- - k8s-workers.yaml
 
-    worker nodes executed as rolling upgrade
+#### contents: 
 
- - k8s-ansible-upgrade-29.2-29.3.log
+- k8s-master.yaml  
+single master node  
 
-    example log of an executed upgrade. 
+- k8s-workers.yaml  
+worker nodes executed as rolling upgrade  
 
-    sample deployment and node list at the end
+- k8s-ansible-upgrade-29.2-29.3.log 
+example log of an executed upgrade.  
+sample deployment and node list at the end  
+
 
 
