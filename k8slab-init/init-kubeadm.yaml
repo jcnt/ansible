@@ -1,0 +1,55 @@
+---
+- name: init kubeadm
+  hosts: all
+  gather_facts: false
+  tasks: 
+    - name: install prereqs
+      ansible.builtin.apt:
+        pkg: 
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gpg
+        state: present
+
+    - name: get gpg
+      command: "{{ item }}"
+      with_items:
+        - curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key -o /tmp/Release.key
+        - gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /tmp/Release.key
+
+    - name: copy kubernetes sources
+      copy: 
+        src: kubernetes.sources
+        dest: /etc/apt/sources.list.d/kubernetes.list
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: update
+      command: apt-get update
+
+    - name: install kubeadm etc
+      ansible.builtin.apt:
+        pkg: 
+        - kubelet
+        - kubeadm
+        - kubectl
+        state: present
+
+    - name: hold
+      ansible.builtin.dpkg_selections:
+        name: kubeadm
+        selection: hold
+
+    - name: hold
+      ansible.builtin.dpkg_selections:
+        name: kubelet
+        selection: hold
+
+    - name: hold 
+      ansible.builtin.dpkg_selections:
+        name: kubectl
+        selection: hold
+
+...

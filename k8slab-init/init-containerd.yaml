@@ -1,0 +1,49 @@
+---
+- name: k8s modules
+  hosts: all
+  gather_facts: false
+  tasks: 
+    - name: update
+      command: sudo apt-get update
+
+    - name: install curl
+      ansible.builtin.apt:
+        pkg: 
+        - ca-certificates
+        - curl
+        state: present
+
+    - name: keyring gpg etc
+      command: "{{ item }}"
+      with_items:
+        - sudo install -m 0755 -d /etc/apt/keyrings
+        - sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+
+    - name: copy containerd sources
+      copy: 
+        src: containerd.sources
+        dest: /etc/apt/sources.list.d/docker.list
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: update
+      command: sudo apt-get update
+
+    - name: install curl
+      ansible.builtin.apt:
+        name: containerd.io
+        state: present
+
+    - name: copy containerd config
+      copy: 
+        src: config.toml
+        dest: /etc/containerd/config.toml
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: restart containerd
+      command: systemctl restart containerd.service
+
+...

@@ -1,0 +1,14 @@
+---
+- name: preparing k8s cluster after snapshot restore
+  hosts: all
+  gather_facts: false
+  tasks: 
+    - name: Updating interfaces to fixed IPs
+      copy: 
+        src: interfaces/{{ inventory_hostname }}
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: 0644
+
+...

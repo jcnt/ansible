@@ -1,0 +1,18 @@
+---
+masters: 
+  hosts: 
+    jjmaster:
+  vars:
+    ansible_become: true
+    become_method: sudo
+workers: 
+  hosts: 
+    jjkw1:
+    jjkw2:
+    jjkw3:
+    jjkw4:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+...

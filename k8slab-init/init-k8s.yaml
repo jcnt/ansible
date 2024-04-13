@@ -1,0 +1,32 @@
+---
+- name: k8s modules
+  hosts: all
+  gather_facts: false
+  tasks: 
+    - name: copy modules file
+      copy: 
+        src: modules-k8s.conf
+        dest: /etc/modules-load.d/k8s.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: load modules
+      command: modprobe overlay
+
+    - name: load modules
+      command: modprobe br_netfilter
+
+    - name: copy sysctl file
+      copy: 
+        src: sysctl-k8s.conf
+        dest: /etc/sysctl.d/k8s.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: sysctl
+      command: sysctl --system
+
+
+...

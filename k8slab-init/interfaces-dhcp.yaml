@@ -1,0 +1,14 @@
+---
+- name: changing all hosts to dhcp before templating
+  hosts: all
+  gather_facts: false
+  tasks: 
+    - name: Updating interfaces to fixed IPs
+      copy: 
+        src: interfaces/dhcp
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: 0644
+
+...
