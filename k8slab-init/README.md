@@ -1,4 +1,4 @@
-### sample playbooks for upgrading my lab cluster. 
+### sample playbooks to install my lab cluster
 
 #### requirements: 
 - auth setup with ssh keys
