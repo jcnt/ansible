@@ -7,10 +7,10 @@ masters:
     become_method: sudo
 workers: 
   hosts: 
-    jjkw1:
-    jjkw2:
-    jjkw3:
-    jjkw4:
+    jjkw11:
+    jjkw12:
+    jjkw13:
+    jjkw14:
   vars:
     ansible_become: true
     become_method: sudo
