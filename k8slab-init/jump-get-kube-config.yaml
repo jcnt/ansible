@@ -1,0 +1,10 @@
+---
+- name: get cube config
+  hosts: masters
+  gather_facts: false
+  tasks: 
+    - name: get config
+      ansible.builtin.fetch:
+        src: /etc/kubernetes/admin.conf
+        dest: /tmp
+...

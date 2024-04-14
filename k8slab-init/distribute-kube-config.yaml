@@ -1,0 +1,17 @@
+---
+- name: push kube config
+  hosts: workers
+  gather_facts: false
+  tasks: 
+    - name: dir
+      ansible.builtin.file: 
+        path: /root/.kube
+        state: directory
+        owner: root
+        group: root
+
+    - name: copy config
+      copy: 
+        src: /home/jacint/.kube/config
+        dest: /root/.kube/config
+...
