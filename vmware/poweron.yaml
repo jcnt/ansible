@@ -1,0 +1,19 @@
+---
+- name: Power on
+  gather_facts: false
+  hosts: localhost
+  tasks: 
+  - name: Set the state of a virtual machine to poweron
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: "{{ vmname }}"
+      state: powered-on
+      validate_certs: false
+      force: true
+    delegate_to: localhost
+    register: deploy
+
+...
