@@ -1,6 +1,6 @@
 ---
 - name: get cube config
-  hosts: masters
+  hosts: '{{ master }}'
   gather_facts: false
   tasks: 
     - name: get config

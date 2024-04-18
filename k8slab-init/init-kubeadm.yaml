@@ -1,6 +1,6 @@
 ---
 - name: init kubeadm
-  hosts: all
+  hosts: "{{ cluster }}"
   gather_facts: false
   tasks: 
     - name: install prereqs

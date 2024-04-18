@@ -1,16 +1,56 @@
 ---
-masters: 
+master1: 
   hosts: 
     jjmaster:
   vars:
     ansible_become: true
     become_method: sudo
-workers: 
+
+workers1: 
   hosts: 
     jjkw11:
     jjkw12:
     jjkw13:
     jjkw14:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster1: 
+  hosts: 
+    jjmaster:
+    jjkw11:
+    jjkw12:
+    jjkw13:
+    jjkw14:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+master2: 
+  hosts: 
+    jjmastdr:
+  vars:
+    ansible_become: true
+    become_method: sudo
+    
+workers2: 
+  hosts: 
+    jjkw21:
+    jjkw22:
+    jjkw23:
+    jjkw24:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster2: 
+  hosts: 
+    jjmastdr:
+    jjkw21:
+    jjkw22:
+    jjkw23:
+    jjkw24:
   vars:
     ansible_become: true
     become_method: sudo

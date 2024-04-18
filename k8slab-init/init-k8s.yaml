@@ -1,6 +1,6 @@
 ---
 - name: k8s modules
-  hosts: all
+  hosts: "{{ cluster }}"
   gather_facts: false
   tasks: 
     - name: copy modules file
