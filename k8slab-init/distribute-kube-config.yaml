@@ -3,12 +3,19 @@
   hosts: '{{ cluster }}'
   gather_facts: false
   tasks: 
-    - name: copy config
+    - name: copy config to root
       copy: 
         src: /home/jacint/.kube/config
-        dest: /etc/kubernetes/admin.conf
+        dest: /root/.kube/config
         owner: root
-        group: kube
+        group: root
+        mode: '0640'
+    - name: copy config to user
+      copy: 
+        src: /home/jacint/.kube/config
+        dest: /home/jacint/.kube/config
+        owner: jacint
+        group: jacint
         mode: '0640'
 
 ...
