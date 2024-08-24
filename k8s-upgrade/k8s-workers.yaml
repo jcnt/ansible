@@ -16,7 +16,7 @@
 
   - name: upgrade kubeadm
     ansible.builtin.apt:
-      name: kubeadm=1.29.3-1.1
+      name: kubeadm=1.29.8-1.1
       state: present
 
   - name: hold kubeadm
@@ -25,7 +25,7 @@
       selection: hold
 
   - name: drain the node
-    command: kubectl drain "{{ inventory_hostname }}" --ignore-daemonsets
+    command: kubectl drain "{{ inventory_hostname }}" --ignore-daemonsets --delete-emptydir-data
 
   - name: upgrade node
     command: kubeadm upgrade node
@@ -42,12 +42,12 @@
 
   - name: upgrade kubelet
     ansible.builtin.apt:
-      name: kubelet=1.29.3-1.1
+      name: kubelet=1.29.8-1.1
       state: present
 
   - name: upgrade kubectl
     ansible.builtin.apt:
-      name: kubectl=1.29.3-1.1
+      name: kubectl=1.29.8-1.1
       state: present
 
   - name: hold kubelet
@@ -70,7 +70,7 @@
     command: kubectl uncordon "{{ inventory_hostname }}"
 
   - name: sleep 15sec 
-    command: sleep 15
+    command: sleep 20
 
 ...
 

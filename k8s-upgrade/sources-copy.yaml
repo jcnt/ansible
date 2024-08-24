@@ -1,0 +1,12 @@
+- name: copy sources.list
+  gather_facts: false
+  hosts: workers
+  tasks: 
+  - name: copy sources.list
+    copy:
+      src: kubernetes-sources.list
+      dest: /etc/apt/sources.list.d/kubernetes.list
+      owner: root
+      group: root
+      mode: 0644
+  

@@ -1,6 +1,6 @@
 ---
 - name: upgrade kubernetes cluster
-  hosts: k8sm1
+  hosts: jjmaster
   gather_facts: false
   tasks: 
   - name: apt update
@@ -17,7 +17,7 @@
 
   - name: upgrade kubeadm
     ansible.builtin.apt:
-      name: kubeadm=1.29.3-1.1
+      name: kubeadm=1.29.8-1.1
       state: present
 
   - name: hold kubeadm
@@ -29,10 +29,10 @@
     command: sleep 120
 
   - name: kubeadm upgrade
-    command: echo y | kubeadm upgrade apply v1.29.3
+    command: echo y | kubeadm upgrade apply v1.29.8
 
   - name: drain the node
-    command: kubectl drain k8sm1 --ignore-daemonsets
+    command: kubectl drain jjmaster --ignore-daemonsets
 
   - name: unhold kubelet
     ansible.builtin.dpkg_selections:
@@ -46,12 +46,12 @@
 
   - name: upgrade kubelet
     ansible.builtin.apt:
-      name: kubelet=1.29.3-1.1
+      name: kubelet=1.29.8-1.1
       state: present
 
   - name: upgrade kubectl
     ansible.builtin.apt:
-      name: kubectl=1.29.3-1.1
+      name: kubectl=1.29.8-1.1
       state: present
 
   - name: hold kubelet
@@ -71,7 +71,7 @@
     command: systemctl restart kubelet
 
   - name: uncordon the node
-    command: kubectl uncordon k8sm1
+    command: kubectl uncordon jjmaster
 
 ...
 
