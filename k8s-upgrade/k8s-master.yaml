@@ -29,7 +29,7 @@
     command: sleep 120
 
   - name: kubeadm upgrade
-    command: echo y | kubeadm upgrade apply v1.29.8
+    command: kubeadm upgrade apply --yes v1.29.8
 
   - name: drain the node
     command: kubectl drain jjmaster --ignore-daemonsets
