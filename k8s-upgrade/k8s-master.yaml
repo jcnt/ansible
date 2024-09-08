@@ -1,6 +1,6 @@
 ---
 - name: upgrade kubernetes cluster
-  hosts: jjmaster
+  hosts: "{{ master }}"
   gather_facts: false
   tasks: 
   - name: apt update
@@ -17,7 +17,7 @@
 
   - name: upgrade kubeadm
     ansible.builtin.apt:
-      name: kubeadm=1.29.8-1.1
+      name: kubeadm={{ version }}-1.1
       state: present
 
   - name: hold kubeadm
@@ -26,13 +26,13 @@
       selection: hold
 
   - name: wait for apiserver
-    command: sleep 120
+    command: sleep 240
 
   - name: kubeadm upgrade
-    command: kubeadm upgrade apply --yes v1.29.8
+    command: kubeadm upgrade apply --yes v{{ version }}
 
   - name: drain the node
-    command: kubectl drain jjmaster --ignore-daemonsets
+    command: kubectl drain "{{ inventory_hostname }}" --ignore-daemonsets --delete-emptydir-data
 
   - name: unhold kubelet
     ansible.builtin.dpkg_selections:
@@ -46,12 +46,12 @@
 
   - name: upgrade kubelet
     ansible.builtin.apt:
-      name: kubelet=1.29.8-1.1
+      name: kubelet={{ version }}-1.1
       state: present
 
   - name: upgrade kubectl
     ansible.builtin.apt:
-      name: kubectl=1.29.8-1.1
+      name: kubectl={{ version }}-1.1
       state: present
 
   - name: hold kubelet
@@ -71,7 +71,7 @@
     command: systemctl restart kubelet
 
   - name: uncordon the node
-    command: kubectl uncordon jjmaster
+    command: kubectl uncordon "{{ inventory_hostname }}"
 
 ...
 

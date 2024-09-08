@@ -1,7 +1,7 @@
 ---
 
 - name: upgrade kubernetes cluster
-  hosts: workers
+  hosts: "{{ workers }}"
   serial: 1
   gather_facts: false
   tasks: 
@@ -16,7 +16,7 @@
 
   - name: upgrade kubeadm
     ansible.builtin.apt:
-      name: kubeadm=1.29.8-1.1
+      name: kubeadm={{ version }}-1.1
       state: present
 
   - name: hold kubeadm
@@ -42,12 +42,12 @@
 
   - name: upgrade kubelet
     ansible.builtin.apt:
-      name: kubelet=1.29.8-1.1
+      name: kubelet={{ version }}-1.1
       state: present
 
   - name: upgrade kubectl
     ansible.builtin.apt:
-      name: kubectl=1.29.8-1.1
+      name: kubectl={{ version }}-1.1
       state: present
 
   - name: hold kubelet
