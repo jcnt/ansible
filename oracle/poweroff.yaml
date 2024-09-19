@@ -1,0 +1,33 @@
+---
+- name: Power Off VM
+  gather_facts: false
+  hosts: localhost
+  vars: 
+    ansible_python_interpreter: /usr/bin/python3.11
+  tasks: 
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: jj-ORA-1
+      state: powered-off
+      validate_certs: false
+      force: true
+    delegate_to: localhost
+    register: deploy
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.150
+      username: administrator@vsphere.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: jj-ORA-2
+      state: powered-off
+      validate_certs: false
+      force: true
+    delegate_to: localhost
+    register: deploy
+
+...
