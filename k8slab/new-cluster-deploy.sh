@@ -36,7 +36,6 @@ sleep 30
 # finalize cluster nodes
 for i in `cat $1`; do ssh $i ./tempinit.sh $i; done 
 
-cd ../ansible/k8slab-init/
 ansible-playbook init-k8s.yaml --extra-vars "cluster=$1"
 ansible-playbook init-containerd.yaml --extra-vars "cluster=$1"
 ansible-playbook init-kubeadm.yaml --extra-vars "cluster=$1"
