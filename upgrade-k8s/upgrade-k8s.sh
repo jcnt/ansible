@@ -18,7 +18,7 @@ elif [[ $1 == cluster2 ]]
         workers=workers2
 fi
 
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$debver/deb/ /" > kubernetes-sources.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$debver/deb/ /" > kubernetes.sources
 echo "Updating sources.list"
 ansible-playbook sources-copy.yaml -e "cluster=$1"
 echo "Upgrading master."
