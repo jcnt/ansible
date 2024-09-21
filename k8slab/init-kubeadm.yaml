@@ -32,9 +32,9 @@
     - name: install kubeadm etc
       ansible.builtin.apt:
         pkg: 
-        - kubelet=1.29.6-1.1
-        - kubeadm=1.29.6-1.1
-        - kubectl=1.29.6-1.1
+        - kubelet={{ version }}-1.1
+        - kubeadm={{ version }}-1.1
+        - kubectl={{ version }}-1.1
         state: present
 
     - name: hold

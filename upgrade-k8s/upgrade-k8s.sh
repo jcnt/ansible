@@ -5,6 +5,8 @@ if [[ $# -eq 0 ]]
     exit 1
 fi
 
+debver=`echo $2 | awk -F"." '{ print $1"."$2 }'`
+
 if [[ $1 == cluster1 ]]
     then 
         master=master1
@@ -16,7 +18,6 @@ elif [[ $1 == cluster2 ]]
         workers=workers2
 fi
 
-debver=`echo $2 | awk -F"." '{ print $1"."$2 }'`
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$debver/deb/ /" > kubernetes-sources.list
 echo "Updating sources.list"
 ansible-playbook sources-copy.yaml -e "cluster=$1"
