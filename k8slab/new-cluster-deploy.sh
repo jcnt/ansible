@@ -53,7 +53,8 @@ ssh $master sudo kubeadm init --pod-network-cidr $podcidr --service-cidr $svccid
 ansible-playbook jump-get-kube-config.yaml --extra-vars "master=$master"
 mv /tmp/$master/etc/kubernetes/admin.conf /home/jacint/.kube/config.$1
 cp /home/jacint/.kube/config.$1 /home/jacint/.kube/config
-kubectl apply -f flannel-$1.yaml
+# kubectl apply -f flannel-$1.yaml
+kubectl apply -f https://reweave.azurewebsites.net/k8s/v$debver/net.yaml
 
 TOKEN=`ssh $master sudo kubeadm token list |grep "kubeadm init" |awk '{print $1}'`
 for i in `echo $workers`;do ssh $i sudo kubeadm join $master:6443 --token $TOKEN --discovery-token-unsafe-skip-ca-verification; done
