@@ -2,7 +2,7 @@
 source /home/jacint/.vcps
 
 if [[ $# -eq 0 ]]
-    then echo paramter: [cluster1 or cluster2] [version, e.g. 1.29.8]
+    then echo paramter: [cluster[1..3] ] [version, e.g. 1.29.8]
     exit 1
 fi
 
@@ -21,6 +21,20 @@ elif [[ $1 == cluster2 ]]
         workers="jjkw21 jjkw22 jjkw23 jjkw24"
 	    podcidr=10.77.2.0/24
 	    svccidr=10.78.2.0/24
+
+elif [[ $1 == cluster3 ]]
+    then 
+	    master=jjmast3r
+        workers="jjkw31 jjkw32 jjkw33 jjkw34"
+	    podcidr=10.77.3.0/24
+	    svccidr=10.78.3.0/24
+
+elif [[ $1 == clusterbk ]]
+    then 
+	    master=jjpxbkm
+        workers="jjpxbk1 jjpxbk2 jjpxbk3"
+	    podcidr=10.77.4.0/24
+	    svccidr=10.78.4.0/24
 fi
 
 # cloning template to VMs 
@@ -66,5 +80,11 @@ if [[ $1 == cluster1 ]]
 elif [[ $1 == cluster2 ]]
     then
         for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.2.0/24"}}'; done
+elif [[ $1 == cluster3 ]]
+    then
+        for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.3.0/24"}}'; done
+elif [[ $1 == clusterbk ]]
+    then
+        for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.4.0/24"}}'; done
 fi
 

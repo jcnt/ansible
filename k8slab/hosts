@@ -55,4 +55,58 @@ cluster2:
     ansible_become: true
     become_method: sudo
 
+master3: 
+  hosts: 
+    jjmast3r:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workers3: 
+  hosts: 
+    jjkw31:
+    jjkw32:
+    jjkw33:
+    jjkw34:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster3: 
+  hosts: 
+    jjmast3r:
+    jjkw31:
+    jjkw32:
+    jjkw33:
+    jjkw34:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+masterbk: 
+  hosts: 
+    jjpxbkm:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workersbk: 
+  hosts: 
+    jjpxbk1:
+    jjpxbk2:
+    jjpxbk3:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+clusterbk: 
+  hosts: 
+    jjpxbkm:
+    jjpxbk1:
+    jjpxbk2:
+    jjpxbk3:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
 ...
