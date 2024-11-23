@@ -5,14 +5,15 @@
   vars: 
     ansible_python_interpreter: /usr/bin/python3.11
   tasks: 
-  - name: Check if master exists
+  - name: Gather all VMs from folder 
     community.vmware.vmware_vm_info:
       hostname: 10.206.112.50
       username: administrator@pureczebc.local
       password: "{{ password }}"
-        #   folder: /PureCZ-Site1/vm/jacint
-      vm_name: "{{ vmname }}"
+      folder: /PureCZ-Site1/vm/jacint
       validate_certs: false
+      show_attribute: true
     delegate_to: localhost
-    register: deploy
+    register: vm_info
 ...
+

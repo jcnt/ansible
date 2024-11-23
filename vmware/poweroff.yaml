@@ -14,7 +14,7 @@
       name: "{{ vmname }}"
       state: powered-off
       validate_certs: false
-      force: true
+      force: false
     delegate_to: localhost
     register: deploy
 

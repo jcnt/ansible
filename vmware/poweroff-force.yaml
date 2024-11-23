@@ -1,18 +1,21 @@
 ---
-- name: Get VM info
+- name: Force Power Off VM
   gather_facts: false
   hosts: localhost
   vars: 
     ansible_python_interpreter: /usr/bin/python3.11
   tasks: 
-  - name: Check if master exists
-    community.vmware.vmware_vm_info:
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
       hostname: 10.206.112.50
       username: administrator@pureczebc.local
       password: "{{ password }}"
-        #   folder: /PureCZ-Site1/vm/jacint
-      vm_name: "{{ vmname }}"
+      folder: /jacint
+      name: "{{ vmname }}"
+      state: powered-off
       validate_certs: false
+      force: true
     delegate_to: localhost
     register: deploy
+
 ...
