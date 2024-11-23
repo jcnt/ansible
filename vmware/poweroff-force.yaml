@@ -2,6 +2,7 @@
 - name: Force Power Off VM
   gather_facts: false
   hosts: localhost
+  strategy: free
   vars: 
     ansible_python_interpreter: /usr/bin/python3.11
   tasks: 
@@ -11,11 +12,68 @@
       username: administrator@pureczebc.local
       password: "{{ password }}"
       folder: /jacint
-      name: "{{ vmname }}"
+      name: "{{ master }}"
       state: powered-off
       validate_certs: false
       force: true
+    async: 3600
+    poll: 0
     delegate_to: localhost
     register: deploy
-
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: "{{ w1 }}"
+      state: powered-off
+      validate_certs: false
+      force: true
+    async: 3600
+    poll: 0
+    delegate_to: localhost
+    register: deploy
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: "{{ w2 }}"
+      state: powered-off
+      validate_certs: false
+      force: true
+    async: 3600
+    poll: 0
+    delegate_to: localhost
+    register: deploy
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: "{{ w3 }}"
+      state: powered-off
+      validate_certs: false
+      force: true
+    async: 3600
+    poll: 0
+    delegate_to: localhost
+    register: deploy
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: 10.206.112.50
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: "{{ w4 }}"
+      state: powered-off
+      validate_certs: false
+      force: true
+    async: 3600
+    poll: 0
+    delegate_to: localhost
+    register: deploy
 ...
