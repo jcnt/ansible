@@ -2,8 +2,6 @@
 - name: Power Off VM
   gather_facts: false
   hosts: localhost
-  vars: 
-    ansible_python_interpreter: /usr/bin/python3.11
   tasks: 
   - name: Set the state of a virtual machine to powered-off
     community.vmware.vmware_guest_powerstate:

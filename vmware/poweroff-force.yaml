@@ -3,8 +3,6 @@
   gather_facts: false
   hosts: localhost
   strategy: free
-  vars: 
-    ansible_python_interpreter: /usr/bin/python3.11
   tasks: 
   - name: Set the state of a virtual machine to powered-off
     community.vmware.vmware_guest_powerstate:
