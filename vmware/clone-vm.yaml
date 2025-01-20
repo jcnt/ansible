@@ -15,6 +15,7 @@
       folder: /jacint
       name: jj-{{ vmname }}
       validate_certs: false
+      resource_pool: jacint
       networks: 
         - name: VM Network
           ip: "{{ ipaddress }}"

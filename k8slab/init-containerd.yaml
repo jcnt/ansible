@@ -6,13 +6,13 @@
     - name: update
       command: sudo apt-get update
 
-    - name: install curl
-      ansible.builtin.apt:
-        pkg: 
-        - ca-certificates
-        - curl
-        state: present
-
+#    - name: install curl
+#      ansible.builtin.apt:
+#        pkg: 
+#        - ca-certificates
+#        - curl
+#        state: present
+#
     - name: keyring gpg etc
       command: "{{ item }}"
       with_items:
@@ -30,7 +30,7 @@
     - name: update
       command: sudo apt-get update
 
-    - name: install curl
+    - name: install containerd.io
       ansible.builtin.apt:
         name: containerd.io
         state: present
