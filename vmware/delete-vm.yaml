@@ -12,7 +12,7 @@
       state: absent
       cluster: One
       folder: /jacint
-      name: "{{ vmname }}"
+      name: jj-{{ vmname }}
       validate_certs: false
     delegate_to: localhost
 ...

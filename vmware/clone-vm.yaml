@@ -13,7 +13,7 @@
       template: jjdebbuild
       cluster: One
       folder: /jacint
-      name: "{{ vmname }}"
+      name: jj-{{ vmname }}
       validate_certs: false
       networks: 
         - name: VM Network

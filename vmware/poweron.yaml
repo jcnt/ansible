@@ -9,7 +9,7 @@
       username: administrator@pureczebc.local
       password: "{{ password }}"
       folder: /jacint
-      name: "{{ vmname }}"
+      name: jj-{{ vmname }}
       state: powered-on
       validate_certs: false
       force: true

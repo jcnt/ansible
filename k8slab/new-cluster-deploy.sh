@@ -2,7 +2,7 @@
 source /home/jacint/.vcps
 
 if [[ $# -eq 0 ]]
-    then echo paramter: [cluster[1..3] ] [version, e.g. 1.29.8]
+    then echo paramter: [cluster[1..5] ] [version, e.g. 1.29.8]
     exit 1
 fi
 
@@ -10,24 +10,38 @@ debver=`echo $2 | awk -F"." '{ print $1"."$2 }'`
 
 if [[ $1 == cluster1 ]]
     then 
-        master=jjmaster
-        workers="jjkw11 jjkw12 jjkw13 jjkw14"
+        master=m1
+        workers="w11 w12 w13"
 	    podcidr=10.77.1.0/24
 	    svccidr=10.78.1.0/24
 
 elif [[ $1 == cluster2 ]]
     then 
-	    master=jjmastdr
-        workers="jjkw21 jjkw22 jjkw23 jjkw24"
+	    master=m2
+        workers="w21 w22 w23"
 	    podcidr=10.77.2.0/24
 	    svccidr=10.78.2.0/24
 
 elif [[ $1 == cluster3 ]]
     then 
-	    master=jjmast3r
-        workers="jjkw31 jjkw32 jjkw33 jjkw34"
+	    master=m3
+        workers="w31 w32 w33"
 	    podcidr=10.77.3.0/24
 	    svccidr=10.78.3.0/24
+
+elif [[ $1 == cluster4 ]]
+    then 
+	    master=m4
+        workers="w41 w42 w43"
+	    podcidr=10.77.5.0/24
+	    svccidr=10.78.5.0/24
+
+elif [[ $1 == cluster5 ]]
+    then 
+	    master=m5
+        workers="w51 w52 w53"
+	    podcidr=10.77.6.0/24
+	    svccidr=10.78.6.0/24
 
 elif [[ $1 == clusterbk ]]
     then 
@@ -53,12 +67,12 @@ sleep 30
 
 # finalize cluster nodes
 for i in `cat $1`; 
-    do ssh $i ./tempinit.sh $i; 
+    do ssh $i ./tempinit.sh; 
 done 
 
 
-ansible-playbook init-k8s.yaml --extra-vars "cluster=$1"
-ansible-playbook init-containerd.yaml --extra-vars "cluster=$1"
+ansible-playbook init-k8s.yaml -e "cluster=$1"
+ansible-playbook init-containerd.yaml -e "cluster=$1"
 
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$debver/deb/ /" > kubernetes.sources
 
@@ -86,5 +100,11 @@ elif [[ $1 == cluster3 ]]
 elif [[ $1 == clusterbk ]]
     then
         for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.4.0/24"}}'; done
+elif [[ $1 == cluster4 ]]
+    then
+        for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.5.0/24"}}'; done
+elif [[ $1 == cluster5 ]]
+    then
+        for i in `echo $workers`;do kubectl patch node $i -p '{"spec":{"podCIDR":"10.77.6.0/24"}}'; done
 fi
 
