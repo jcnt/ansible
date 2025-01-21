@@ -16,9 +16,9 @@ else
     elif [[ $1 == cluster2 ]]
         then 
             master=jj-m2
-            w1=jjk-21
-            w2=jjk-22
-            w3=jjk-23
+            w1=jj-w21
+            w2=jj-w22
+            w3=jj-w23
     
     elif [[ $1 == cluster3 ]]
         then 

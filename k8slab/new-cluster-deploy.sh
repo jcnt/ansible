@@ -18,25 +18,25 @@ elif [[ $1 == cluster2 ]]
     then 
 	    master=m2
         workers="w21 w22 w23"
-	    svccidr=10.78.2.0/24
+	    svccidr=10.78.20.0/24
 
 elif [[ $1 == cluster3 ]]
     then 
 	    master=m3
         workers="w31 w32 w33"
-	    svccidr=10.78.3.0/24
+	    svccidr=10.78.30.0/24
 
 elif [[ $1 == cluster4 ]]
     then 
 	    master=m4
         workers="w41 w42 w43"
-	    svccidr=10.78.5.0/24
+	    svccidr=10.78.40.0/24
 
 elif [[ $1 == cluster5 ]]
     then 
 	    master=m5
         workers="w51 w52 w53"
-	    svccidr=10.78.6.0/24
+	    svccidr=10.78.50.0/24
 
 elif [[ $1 == clusterbk ]]
     then 
@@ -56,8 +56,8 @@ for i in `cat $1`;
     do ansible-playbook /home/jacint/ansible/vmware/poweron.yaml -e "vmname=$i" -e "password=$PS"; 
 done
 
-echo "sleeping for 10 sec, VMs coming up, re-IP, SSH re-key"
-sleep 15
+echo "sleeping for 30 sec, VMs coming up, re-IP, SSH re-key"
+sleep 30
 
 # finalize cluster nodes
 for i in `cat $1`; 
@@ -89,7 +89,7 @@ if [[ $3 == px ]]
         kubectl apply -f ~/locyml/3.2-px-operator.yaml
         kubectl apply -f ~/locyml/vsphere-px.yaml
         sleep 60
-        kubectl apply -f ~/locyml/3.2-px-sc-clddrv.yaml
+        kubectl apply -f ~/locyml/3.2-px-sc-clddrv-$1.yaml
         ssh m1 touch .px
 fi
 
