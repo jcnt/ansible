@@ -46,24 +46,23 @@ elif [[ $1 == clusterbk ]]
 fi
 
 # cloning template to VMs 
+echo "cloning and power on VMs"
+echo
 for i in `cat $1`; 
     do ip=`grep $i /etc/hosts |awk '{print $1}'`;
     ansible-playbook /home/jacint/ansible/vmware/clone-vm.yaml -e "vmname=$i" -e "ipaddress=$ip" -e "password=$PS"; 
 done
 
-# poweron all VMs
-for i in `cat $1`; 
-    do ansible-playbook /home/jacint/ansible/vmware/poweron.yaml -e "vmname=$i" -e "password=$PS"; 
-done
-
-echo "sleeping for 30 sec, VMs coming up, re-IP, SSH re-key"
-sleep 30
-
 # finalize cluster nodes
+echo "Customize cluster nodes..."
 for i in `cat $1`; 
-    do ssh $i ./tempinit.sh; 
+    do echo; echo $i; echo; ssh $i ./tempinit.sh; 
 done 
-
+echo
+echo "double checking..."
+for i in `cat $1`; 
+    do echo; echo $i; echo; ssh $i ./tempinit.sh 2>/dev/null; 
+done 
 
 ansible-playbook init-k8s.yaml -e "cluster=$1"
 ansible-playbook init-containerd.yaml -e "cluster=$1"
@@ -71,6 +70,11 @@ ansible-playbook init-containerd.yaml -e "cluster=$1"
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$debver/deb/ /" > kubernetes.sources
 
 ansible-playbook init-kubeadm.yaml -e "cluster=$1" -e "version=$2" -e "debver=$debver"
+
+echo
+echo "kubeadm init on master"
+echo
+
 ssh $master sudo kubeadm init --service-cidr $svccidr
 ansible-playbook jump-get-kube-config.yaml --extra-vars "master=$master"
 mv /tmp/$master/etc/kubernetes/admin.conf /home/jacint/.kube/config.$1
@@ -78,7 +82,7 @@ cp /home/jacint/.kube/config.$1 /home/jacint/.kube/config
 kubectl apply -f https://reweave.azurewebsites.net/k8s/v$debver/net.yaml
 
 TOKEN=`ssh $master sudo kubeadm token list |grep "kubeadm init" |awk '{print $1}'`
-for i in `echo $workers`;do ssh $i sudo kubeadm join $master:6443 --token $TOKEN --discovery-token-unsafe-skip-ca-verification; done
+for i in `echo $workers`;do echo; echo "joining $i"; echo; ssh $i sudo kubeadm join $master:6443 --token $TOKEN --discovery-token-unsafe-skip-ca-verification; done
 ansible-playbook distribute-kube-config.yaml --extra-vars "cluster=$1"
 
 if [[ $3 == px ]]
@@ -88,7 +92,16 @@ if [[ $3 == px ]]
         echo
         kubectl apply -f ~/locyml/3.2-px-operator.yaml
         kubectl apply -f ~/locyml/vsphere-px.yaml
-        sleep 60
+        echo
+        echo -n "Waiting for portworx-operator"
+        while [[ `kubectl get pods -n portworx -l name=portworx-operator --no-headers |awk '{print $3}'` != Running ]]
+        do
+            echo -n "."
+            sleep 2
+        done
+        echo
+        echo "now apply portworx storage cluster"
+        echo
         kubectl apply -f ~/locyml/3.2-px-sc-clddrv-$1.yaml
         ssh m1 touch .px
 fi

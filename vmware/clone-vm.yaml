@@ -3,7 +3,7 @@
   gather_facts: false
   hosts: localhost
   tasks: 
-  - name:  Clone a virtual machine from Linux template and customize
+  - name:  Clone a virtual machine from Linux template and customize 
     community.vmware.vmware_guest:
       hostname: purecz-vc-01
       username: administrator@pureczebc.local
@@ -22,4 +22,17 @@
           netmask: 255.255.255.0
           gateway: 10.206.112.1
     delegate_to: localhost
+
+  - name: Power on VM
+    community.vmware.vmware_guest_powerstate:
+      hostname: purecz-vc-01
+      username: administrator@pureczebc.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: jj-{{ vmname }}
+      state: powered-on
+      validate_certs: false
+      force: true
+    delegate_to: localhost
+    register: deploy
 ...
