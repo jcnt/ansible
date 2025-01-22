@@ -27,7 +27,7 @@ else
     
     elif [[ $1 == clusterbk ]]
         then 
-    	    vmname=jjpxbkm
+    	    vmname=bkm
     fi
 
     ansible-playbook /home/jacint/ansible/vmware/vminfo.yaml -e "vmname=$vmname" -e "password=$PS"

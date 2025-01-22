@@ -12,37 +12,37 @@ if [[ $1 == cluster1 ]]
     then 
         master=m1
         workers="w11 w12 w13"
-	    svccidr=10.78.10.0/24
+	    svccidr=10.77.1.0/24
 
 elif [[ $1 == cluster2 ]]
     then 
 	    master=m2
         workers="w21 w22 w23"
-	    svccidr=10.78.20.0/24
+	    svccidr=10.77.2.0/24
 
 elif [[ $1 == cluster3 ]]
     then 
 	    master=m3
         workers="w31 w32 w33"
-	    svccidr=10.78.30.0/24
+	    svccidr=10.77.3.0/24
 
 elif [[ $1 == cluster4 ]]
     then 
 	    master=m4
         workers="w41 w42 w43"
-	    svccidr=10.78.40.0/24
+	    svccidr=10.77.4.0/24
 
 elif [[ $1 == cluster5 ]]
     then 
 	    master=m5
         workers="w51 w52 w53"
-	    svccidr=10.78.50.0/24
+	    svccidr=10.77.5.0/24
 
 elif [[ $1 == clusterbk ]]
     then 
-	    master=jjpxbkm
-        workers="jjpxbk1 jjpxbk2 jjpxbk3"
-	    svccidr=10.78.4.0/24
+	    master=bkm
+        workers="bk1 bk2 bk3"
+	    svccidr=10.77.6.0/24
 fi
 
 # cloning template to VMs 
@@ -103,7 +103,7 @@ if [[ $3 == px ]]
         echo "now apply portworx storage cluster"
         echo
         kubectl apply -f ~/locyml/3.2-px-sc-clddrv-$1.yaml
-        ssh m1 touch .px
+        ssh $master touch .px
 fi
 
 

@@ -131,26 +131,26 @@ cluster5:
 
 masterbk: 
   hosts: 
-    jjpxbkm:
+    bkm:
   vars:
     ansible_become: true
     become_method: sudo
 
 workersbk: 
   hosts: 
-    jjpxbk1:
-    jjpxbk2:
-    jjpxbk3:
+    bk1:
+    bk2:
+    bk3:
   vars:
     ansible_become: true
     become_method: sudo
 
 clusterbk: 
   hosts: 
-    jjpxbkm:
-    jjpxbk1:
-    jjpxbk2:
-    jjpxbk3:
+    bkm:
+    bk1:
+    bk2:
+    bk3:
   vars:
     ansible_become: true
     become_method: sudo
