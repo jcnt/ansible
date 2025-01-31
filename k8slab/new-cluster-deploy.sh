@@ -63,6 +63,10 @@ echo "double checking..."
 for i in `cat $1`; 
     do echo; echo $i; echo; ssh $i ./tempinit.sh 2>/dev/null; 
 done 
+echo "once more..."
+for i in `cat $1`; 
+    do echo; echo $i; echo; ssh $i ./tempinit.sh 2>/dev/null; 
+done 
 
 ansible-playbook init-k8s.yaml -e "cluster=$1"
 ansible-playbook init-containerd.yaml -e "cluster=$1"
