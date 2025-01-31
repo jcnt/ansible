@@ -69,6 +69,8 @@ do
                 ssh $i ./tempinit.sh
                 if [[ $? == 0 ]]; then
                     touch cloned-ok-$i
+                else
+                    echo "node skipped, will return..."
                 fi
         fi
     done 
