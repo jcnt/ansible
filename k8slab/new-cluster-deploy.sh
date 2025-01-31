@@ -54,19 +54,29 @@ for i in `cat $1`;
 done
 
 # finalize cluster nodes
+# sometimes ssh would timeout and skip the node, fixed with while loop
 echo "Customize cluster nodes..."
-for i in `cat $1`; 
-    do echo; echo $i; echo; ssh $i ./tempinit.sh; 
-done 
-echo
-echo "double checking..."
-for i in `cat $1`; 
-    do echo; echo $i; echo; ssh $i ./tempinit.sh 2>/dev/null; 
-done 
-echo "once more..."
-for i in `cat $1`; 
-    do echo; echo $i; echo; ssh $i ./tempinit.sh 2>/dev/null; 
-done 
+
+touch cloned-ok-temp
+while [[ `ls -1 cloned-ok-* |wc -l` != 5 ]]
+do
+    for i in `cat $1`; 
+        do echo; echo $i; echo
+        if [[ -f cloned-ok-$i ]]; 
+            then
+                echo $i is OK
+            else 
+                ssh $i ./tempinit.sh
+                if [[ $? == 0 ]]; then
+                    touch cloned-ok-$i
+                fi
+        fi
+    done 
+done
+
+# cleanup status lockfiles 
+rm cloned-ok-*
+
 
 ansible-playbook init-k8s.yaml -e "cluster=$1"
 ansible-playbook init-containerd.yaml -e "cluster=$1"
