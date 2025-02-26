@@ -1,0 +1,34 @@
+---
+- name: clone vm
+  gather_facts: false
+  hosts: localhost
+  tasks:
+  - name:  Clone a virtual machine from Windows template and customize
+    community.vmware.vmware_guest:
+      hostname: "{{ vcenter }}"
+      username: administrator@vsphere.local
+      password: "{{ password }}"
+      datacenter: PureCZ-Site2
+      datastore: "{{ ds }}"
+      name: jj-{{ vmname }}
+      template: jj-win-temp
+      folder: /jacint
+      state: present
+      cluster: PureCZ-Cluster-02
+      validate_certs: false
+    delegate_to: localhost
+
+  - name: Power on VM
+    community.vmware.vmware_guest_powerstate:
+      hostname: "{{ vcenter }}"
+      username: administrator@vsphere.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: jj-{{ vmname }}
+      state: powered-on
+      validate_certs: false
+      force: true
+    delegate_to: localhost
+    register: deploy
+...
+

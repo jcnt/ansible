@@ -1,0 +1,19 @@
+---
+- name: Power Off VM
+  gather_facts: false
+  hosts: localhost
+  tasks: 
+  - name: Set the state of a virtual machine to powered-off
+    community.vmware.vmware_guest_powerstate:
+      hostname: "{{ vcenter }}"
+      username: administrator@vsphere.local
+      password: "{{ password }}"
+      folder: /jacint
+      name: jj-{{ vmname }}
+      state: powered-off
+      validate_certs: false
+      force: false
+    delegate_to: localhost
+    register: deploy
+
+...

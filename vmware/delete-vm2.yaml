@@ -1,0 +1,19 @@
+---
+- name: delete vm
+  gather_facts: false
+  hosts: localhost
+  tasks: 
+  - name:  Delete a virtual machine 
+    community.vmware.vmware_guest:
+      hostname: "{{ vcenter }}"
+      username: administrator@vsphere.local
+      password: "{{ password }}"
+      datacenter: PureCZ-Site2
+      state: absent
+      cluster: PureCZ-Cluster-02
+      folder: /jacint
+      name: jj-{{ vmname }}
+      validate_certs: false
+    delegate_to: localhost
+...
+
