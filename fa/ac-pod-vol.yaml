@@ -1,0 +1,33 @@
+- name:
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create new pod 
+      purestorage.flasharray.purefa_pod:
+        name: jjans
+        fa_url: x70a
+        api_token: "{{ token }}"
+        state: present
+
+    - name: Stretch a pod 
+      purestorage.flasharray.purefa_pod:
+        name: jjans
+        stretch: PureCZ-X70-B
+        fa_url: x70a
+        api_token: "{{ token }}"
+
+    - name: Create new volume 
+      purestorage.flasharray.purefa_volume:
+        name: "{{ volname }}"
+        size: 100G
+        fa_url: x70a
+        api_token: "{{ token }}"
+        state: present
+
+    - name: Map host to volume 
+      purestorage.flasharray.purefa_host:
+        name: jjRHEL
+        volume: "{{ volname }}"
+        lun: 125
+        fa_url: x70a
+        api_token: "{{ token }}"
