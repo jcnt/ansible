@@ -6,7 +6,7 @@
       purestorage.flasharray.purefa_pod:
         name: jjans
         fa_url: x70a
-        api_token: "{{ token }}"
+        api_token: "{{ x70atoken }}"
         state: present
 
     - name: Stretch a pod 
@@ -14,14 +14,14 @@
         name: jjans
         stretch: PureCZ-X70-B
         fa_url: x70a
-        api_token: "{{ token }}"
+        api_token: "{{ x70atoken }}"
 
     - name: Create new volume 
       purestorage.flasharray.purefa_volume:
         name: "{{ volname }}"
         size: 100G
         fa_url: x70a
-        api_token: "{{ token }}"
+        api_token: "{{ x70atoken }}"
         state: present
 
     - name: Map host to volume 
@@ -30,4 +30,12 @@
         volume: "{{ volname }}"
         lun: 125
         fa_url: x70a
-        api_token: "{{ token }}"
+        api_token: "{{ x70atoken }}"
+
+    - name: Map host to volume 
+      purestorage.flasharray.purefa_host:
+        name: jjRHEL
+        volume: "{{ volname }}"
+        lun: 125
+        fa_url: x70b
+        api_token: "{{ x70btoken }}"

@@ -1,6 +1,7 @@
 #!/bin/sh
 
 ssh x70a purevol disconnect --host jjRHEL jjans::jjans
+ssh x70b purevol disconnect --host jjRHEL jjans::jjans
 
 ssh x70a purepod remove --array PureCZ-X70-B jjans
 ssh x70a purevol destroy jjans::jjans

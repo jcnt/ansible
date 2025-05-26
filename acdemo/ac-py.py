@@ -8,8 +8,10 @@ from pypureclient import flasharray
 urllib3.disable_warnings()
 
 X70A = "10.206.205.33"
+X70A_TOKEN = 
 
 X70B = "10.206.205.36"
+X70B_TOKEN =
 
 x70a = flasharray.Client(X70A, api_token=X70A_TOKEN, verify_ssl=False)
 x70b = flasharray.Client(X70B, api_token=X70B_TOKEN, verify_ssl=False)
