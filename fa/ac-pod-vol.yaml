@@ -4,14 +4,14 @@
   tasks:
     - name: Create new pod 
       purestorage.flasharray.purefa_pod:
-        name: jjans
+        name: jj-ans
         fa_url: x70a
         api_token: "{{ x70atoken }}"
         state: present
 
     - name: Stretch a pod 
       purestorage.flasharray.purefa_pod:
-        name: jjans
+        name: jj-ans
         stretch: PureCZ-X70-B
         fa_url: x70a
         api_token: "{{ x70atoken }}"
@@ -28,7 +28,6 @@
       purestorage.flasharray.purefa_host:
         name: jjRHEL
         volume: "{{ volname }}"
-        lun: 125
         fa_url: x70a
         api_token: "{{ x70atoken }}"
 
@@ -36,6 +35,5 @@
       purestorage.flasharray.purefa_host:
         name: jjRHEL
         volume: "{{ volname }}"
-        lun: 125
         fa_url: x70b
         api_token: "{{ x70btoken }}"

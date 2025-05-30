@@ -1,15 +1,15 @@
 #!/bin/sh
 
-ssh x70a purepod create jjtest2
-ssh x70a purepod add --array PureCZ-X70-B jjtest2
-ssh x70a purevol create --size 500G jjtest2::jjtest2vol1
-ssh x70a purevol create --size 500G jjtest2::jjtest2vol2
-ssh x70a purevol create --size 500G jjtest2::jjtest2vol3
-ssh x70a purevol connect --host jjRHEL jjtest2::jjtest2vol1
-ssh x70a purevol connect --host jjRHEL jjtest2::jjtest2vol2
-ssh x70a purevol connect --host jjRHEL jjtest2::jjtest2vol3
+ssh x70a "purepod create jj-shell
+    purepod add --array PureCZ-X70-B jj-shell
+	purevol create --size 500G jj-shell::jj-shellvol1
+	purevol create --size 500G jj-shell::jj-shellvol2
+	purevol create --size 500G jj-shell::jj-shellvol3
+	purevol connect --host jjRHEL jj-shell::jj-shellvol1
+	purevol connect --host jjRHEL jj-shell::jj-shellvol2
+	purevol connect --host jjRHEL jj-shell::jj-shellvol3"
 
-ssh x70b purevol connect --host jjRHEL jjtest2::jjtest2vol1
-ssh x70b purevol connect --host jjRHEL jjtest2::jjtest2vol2
-ssh x70b purevol connect --host jjRHEL jjtest2::jjtest2vol3
+ssh x70b "purevol connect --host jjRHEL jj-shell::jj-shellvol1
+    purevol connect --host jjRHEL jj-shell::jj-shellvol2
+    purevol connect --host jjRHEL jj-shell::jj-shellvol3"
 
