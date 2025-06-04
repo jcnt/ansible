@@ -41,9 +41,12 @@ while response.status_code == 400:
     time.sleep(1)
     response = x70b.get_volumes(names=["jjpy::jjpy"])
 
-for i in range(10):
+
+resp = 400
+while resp != 200:
     print(".", end="", flush=True)
     time.sleep(1)
+    response = x70b.post_connections(volume_names=["jjpy::jjpy"], host_names=["jjRHEL"])
+    resp = response.status_code
 
-response = x70b.post_connections(volume_names=["jjpy::jjpy"], host_names=["jjRHEL"])
-print("\nConnecting Vol on second array...", response.status_code)
+print("\nConnecting Vol on second array...", resp)
