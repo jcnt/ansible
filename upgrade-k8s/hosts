@@ -1,56 +1,156 @@
 ---
 master1: 
   hosts: 
-    jjmaster:
+    m1:
   vars:
     ansible_become: true
     become_method: sudo
 
 workers1: 
   hosts: 
-    jjkw11:
-    jjkw12:
-    jjkw13:
-    jjkw14:
+    w11:
+    w12:
+    w13:
   vars:
     ansible_become: true
     become_method: sudo
 
 cluster1: 
   hosts: 
-    jjmaster:
-    jjkw11:
-    jjkw12:
-    jjkw13:
-    jjkw14:
+    m1:
+    w11:
+    w12:
+    w13:
   vars:
     ansible_become: true
     become_method: sudo
 
 master2: 
   hosts: 
-    jjmastdr:
+    m2:
   vars:
     ansible_become: true
     become_method: sudo
     
 workers2: 
   hosts: 
-    jjkw21:
-    jjkw22:
-    jjkw23:
-    jjkw24:
+    w21:
+    w22:
+    w23:
   vars:
     ansible_become: true
     become_method: sudo
 
 cluster2: 
   hosts: 
-    jjmastdr:
-    jjkw21:
-    jjkw22:
-    jjkw23:
-    jjkw24:
+    m2:
+    w21:
+    w22:
+    w23:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+master3: 
+  hosts: 
+    m3:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workers3: 
+  hosts: 
+    w31:
+    w32:
+    w33:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster3: 
+  hosts: 
+    m3:
+    w31:
+    w32:
+    w33:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+master4: 
+  hosts: 
+    m4:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workers4: 
+  hosts: 
+    w41:
+    w42:
+    w43:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster4: 
+  hosts: 
+    m4:
+    w41:
+    w42:
+    w43:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+master5: 
+  hosts: 
+    m5:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workers5: 
+  hosts: 
+    w51:
+    w52:
+    w53:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+cluster5: 
+  hosts: 
+    m5:
+    w51:
+    w52:
+    w53:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+masterbk: 
+  hosts: 
+    bkm:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+workersbk: 
+  hosts: 
+    bk1:
+    bk2:
+    bk3:
+  vars:
+    ansible_become: true
+    become_method: sudo
+
+clusterbk: 
+  hosts: 
+    bkm:
+    bk1:
+    bk2:
+    bk3:
   vars:
     ansible_become: true
     become_method: sudo
