@@ -5,7 +5,7 @@
   strategy: free
   tasks:
     - name: Set the state of a virtual machine to powered-off
-      vmware.vmware.vm_powerstate:
+      community.vmware.vmware_guest_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"
@@ -19,7 +19,7 @@
       delegate_to: localhost
       register: deploy
     - name: Set the state of a virtual machine to powered-off
-      vmware.vmware.vm_powerstate:
+      community.vmware.vmware_guest_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"
@@ -33,7 +33,7 @@
       delegate_to: localhost
       register: deploy
     - name: Set the state of a virtual machine to powered-off
-      vmware.vmware.vm_powerstate:
+      community.vmware.vmware_guest_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"
@@ -47,7 +47,7 @@
       delegate_to: localhost
       register: deploy
     - name: Set the state of a virtual machine to powered-off
-      vmware.vmware.vm_powerstate:
+      community.vmware.vmware_guest_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"
@@ -61,7 +61,7 @@
       delegate_to: localhost
       register: deploy
     - name: Set the state of a virtual machine to powered-off
-      vmware.vmware.vm_powerstate:
+      community.vmware.vmware_guest_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"
