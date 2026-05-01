@@ -4,7 +4,7 @@
   hosts: localhost
   tasks:
     - name: Set the state of a virtual machine to powered-off
-      community.vmware.vmware_guest_powerstate:
+      vmware.vmware.vm_powerstate:
         hostname: 10.206.112.50
         username: administrator@vsphere.local
         password: "{{ password }}"

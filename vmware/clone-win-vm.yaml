@@ -20,7 +20,7 @@
       delegate_to: localhost
 
     - name: Power on VM
-      community.vmware.vmware_guest_powerstate:
+      vmware.vmware.vm_powerstate:
         hostname: purecz-vc-01.purecz.demo
         username: administrator@vsphere.local
         password: "{{ password }}"
