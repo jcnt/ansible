@@ -8,7 +8,7 @@
         hostname: purecz-vc-01
         username: administrator@vsphere.local
         password: "{{ password }}"
-        datacenter: PureCZ-Site1
+        datacenter: PureCZ
         state: present
         template: jjdebbuild
         cluster: One
