@@ -11,7 +11,7 @@
         datacenter: PureCZ
         state: present
         template: jjdebbuild
-        cluster: One
+        cluster: Everpure
         folder: /jacint
         name: jj-{{ vmname }}
         validate_certs: false

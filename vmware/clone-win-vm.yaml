@@ -14,7 +14,7 @@
         template: jj-win-temp
         folder: /jacint
         state: present
-        cluster: One
+        cluster: Everpure
         resource_pool: jacint
         validate_certs: false
       delegate_to: localhost
