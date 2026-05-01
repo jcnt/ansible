@@ -2,15 +2,15 @@
 - name: Get VM info
   gather_facts: false
   hosts: localhost
-  tasks: 
-  - name: Check if master exists
-    community.vmware.vmware_vm_info:
-      hostname: 10.206.112.50
-      username: administrator@pureczebc.local
-      password: "{{ password }}"
-        #   folder: /PureCZ-Site1/vm/jacint
-      vm_name: "{{ vmname }}"
-      validate_certs: false
-    delegate_to: localhost
-    register: deploy
-...
+  tasks:
+    - name: Check if master exists
+      community.vmware.vmware_vm_info:
+        hostname: 10.206.112.50
+        username: administrator@vsphere.local
+        password:
+          "{{ password }}"
+          #   folder: /PureCZ-Site1/vm/jacint
+        vm_name: "{{ vmname }}"
+        validate_certs: false
+      delegate_to: localhost
+      register: deploy

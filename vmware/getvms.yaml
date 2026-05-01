@@ -2,21 +2,19 @@
 - name: Get VM info
   gather_facts: false
   hosts: localhost
-  tasks: 
-  - name: Gather all VMs from folder 
-    block: 
-      - name: Get VM info
-        community.vmware.vmware_vm_info:
-          hostname: 10.206.112.50
-          username: administrator@pureczebc.local
-          password: "{{ password }}"
-          folder: /PureCZ-Site1/vm/jacint
-          validate_certs: false
-          show_attribute: true
-        delegate_to: localhost
-        register: vm_info
+  tasks:
+    - name: Gather all VMs from folder
+      block:
+        - name: Get VM info
+          community.vmware.vmware_vm_info:
+            hostname: 10.206.112.50
+            username: administrator@vsphere.local
+            password: "{{ password }}"
+            folder: /PureCZ/vm/jacint
+            validate_certs: false
+            show_attribute: true
+          delegate_to: localhost
+          register: vm_info
 
-      - debug:
-          var: vm_info.virtual_machines
-...
-
+        - debug:
+            var: vm_info.virtual_machines

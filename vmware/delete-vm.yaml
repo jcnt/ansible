@@ -6,11 +6,11 @@
   - name:  Delete a virtual machine 
     community.vmware.vmware_guest:
       hostname: purecz-vc-01
-      username: administrator@pureczebc.local
+      username: Administrator@vsphere.local
       password: "{{ password }}"
-      datacenter: PureCZ-Site1
+      datacenter: PureCZ
       state: absent
-      cluster: One
+      cluster: Everpure
       folder: /jacint
       name: jj-{{ vmname }}
       validate_certs: false
