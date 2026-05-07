@@ -109,8 +109,7 @@ if [[ $3 == px ]]
         echo 
         echo "Installing Portworx"
         echo
-        kubectl apply -f ~/locyml/3.2-px-operator.yaml
-        kubectl apply -f ~/locyml/vsphere-px.yaml
+        kubectl apply -f ~/locyml/3.6px-1.34.6-vanilla-op.yaml
         echo
         echo -n "Waiting for portworx-operator"
         while [[ `kubectl get pods -n portworx -l name=portworx-operator --no-headers |awk '{print $3}'` != Running ]]
@@ -121,7 +120,7 @@ if [[ $3 == px ]]
         echo
         echo "now apply portworx storage cluster"
         echo
-        kubectl apply -f ~/locyml/3.2-px-sc-clddrv-$1.yaml
+        kubectl apply -f ~/locyml/3.6px-1.34.6-vanilla-$1.yaml
         ssh $master touch .px
 fi
 
