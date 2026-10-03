@@ -102,7 +102,7 @@ TOKEN=`ssh $master sudo kubeadm token list |grep "kubeadm init" |awk '{print $1}
 for i in `echo $workers`;do echo; echo "joining $i"; echo; ssh $i sudo kubeadm join $master:6443 --token $TOKEN --discovery-token-unsafe-skip-ca-verification; done
 ansible-playbook distribute-kube-config.yaml --extra-vars "cluster=$1"
 
-ssh $master "cilium install --version 1.19.3"
+ssh $master "cilium install --version 1.19.4"
 
 if [[ $3 == px ]]
     then 
